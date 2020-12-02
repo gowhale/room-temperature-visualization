@@ -6,7 +6,7 @@ import datetime
 TIME_BETWEEN_READINGS = 3  # Seconds between readings
 
 
-def get_temprature():
+def get_temperature():
     # TODO: get tempreture from rasbperry pi sensor rather than just random number
     return (randrange(10))
 
@@ -19,8 +19,10 @@ def get_humidity():
 def pretty_time(raw_time):
     return (raw_time.strftime("%H:%M:%S"))
 
+
 def pretty_date(raw_time):
     return (raw_time.strftime("%Y:%m:%d"))
+
 
 def get_current_time_object():
     currentDT = datetime.datetime.now()
@@ -30,10 +32,10 @@ def get_current_time_object():
 
 def create_csv():
     # TODO : Create a new CSV with unique name
-    headers = [["time","temprature","humidity"]]
+    headers = [["time", "temperature", "humidity"]]
     current_datetime = get_current_time_object()
-    # file_name = pretty_time(current_datetime) + "-" + pretty_date(current_datetime) + ".csv"
-    file_name = ("{}-{}.csv").format(pretty_time(current_datetime), pretty_date(current_datetime))
+    file_name = ("temperature-report-{}-{}.csv").format(pretty_date(current_datetime),
+                                                        pretty_time(current_datetime))
     with open(file_name, 'w', newline='') as f:
         writer = csv.writer(f)
         writer.writerows(headers)
@@ -46,12 +48,12 @@ def main():
     current_file = create_csv()
 
     for _ in range(5):
-        temprature = get_temprature()
+        temperature = get_temperature()
         humidity = get_humidity()
         current_time = get_current_time_object()
-        row = [pretty_time(current_time), str(temprature), str(humidity)]
+        row = [pretty_time(current_time), str(temperature), str(humidity)]
         print(row)
-        file = open(current_file,'a')
+        file = open(current_file, 'a')
         # row_str = [",".join(row)]
         row_str = ",".join(row)+"\n"
         file.write(row_str)
