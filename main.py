@@ -38,17 +38,24 @@ def create_csv():
         writer = csv.writer(f)
         writer.writerows(headers)
 
+    return file_name
+
 
 def main():
     # TODO : capture enviroment temp and visualise data
-    create_csv()
+    current_file = create_csv()
 
     for _ in range(5):
         temprature = get_temprature()
         humidity = get_humidity()
         current_time = get_current_time_object()
-        row = [pretty_time(current_time), temprature, humidity]
+        row = [pretty_time(current_time), str(temprature), str(humidity)]
         print(row)
+        file = open(current_file,'a')
+        # row_str = [",".join(row)]
+        row_str = ",".join(row)+"\n"
+        file.write(row_str)
+        file.close()
 
         sleep(TIME_BETWEEN_READINGS)
 
