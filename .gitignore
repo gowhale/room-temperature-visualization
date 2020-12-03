@@ -130,3 +130,6 @@ dmypy.json
 
 #CSV files
 *.csv
+
+#ignore secrets
+secrets.py
