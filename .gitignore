@@ -133,3 +133,6 @@ dmypy.json
 
 #ignore secrets
 secrets.py
+
+#ignore VS code
+.vscode/
