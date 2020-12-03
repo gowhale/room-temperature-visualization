@@ -1,16 +1,15 @@
 from secrets import weather_api_key
-
 import requests
 import json
 
-def kelvin_to_celcius (k):
+
+def kelvin_to_celcius(k):
     raw_value = (k - 273.15)
-    formatted_value = round(raw_value,2)
+    formatted_value = round(raw_value, 2)
     return formatted_value
 
 
 def get_weather(city_name):
-    print("Weather Getter")
 
     base_url = "http://api.openweathermap.org/data/2.5/weather?"
 
@@ -25,14 +24,15 @@ def get_weather(city_name):
         main_data = pretty_json["main"]
 
         current_temperature_kelvin = main_data["temp"]
-        current_temperature_celcius = kelvin_to_celcius(current_temperature_kelvin)
+        current_temperature_celcius = kelvin_to_celcius(
+            current_temperature_kelvin)
 
         # print(" Temperature (in kelvin unit) = " +
 
         #       str(current_temperature_kelvin) +
 
         #       "\n Temperature (in celcius unit) = " +
-              
+
         #       str(current_temperature_celcius))
 
     except KeyError:
@@ -48,10 +48,9 @@ def get_weather(city_name):
             print(" --- API KEY ERROR --- ")
 
         else:
-            print("ERROR")
-            print(pretty_json)
+            print("UNKNOWN ERROR CODE")
+        
+        print(pretty_json)
 
-    return current_temperature_celcius
+    return str(current_temperature_celcius)
 
-
-# get_weather("CARDIFF")
