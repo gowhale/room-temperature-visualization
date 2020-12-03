@@ -2,8 +2,9 @@ import csv
 from time import sleep
 from random import randrange
 import datetime
+from weather_api import *
 
-TIME_BETWEEN_READINGS = 3  # Seconds between readings
+TIME_BETWEEN_READINGS = 0  # Seconds between readings
 
 
 def get_temperature():
@@ -25,9 +26,9 @@ def pretty_date(raw_time):
 
 
 def get_current_time_object():
-    currentDT = datetime.datetime.now()
+    current_date_time = datetime.datetime.now()
 
-    return currentDT
+    return current_date_time
 
 
 def create_csv():
@@ -45,6 +46,7 @@ def create_csv():
 
 def main():
     # TODO : capture enviroment temp and visualise data
+    get_weather()
     current_file = create_csv()
 
     for _ in range(5):
@@ -54,7 +56,6 @@ def main():
         row = [pretty_time(current_time), str(temperature), str(humidity)]
         print(row)
         file = open(current_file, 'a')
-        # row_str = [",".join(row)]
         row_str = ",".join(row)+"\n"
         file.write(row_str)
         file.close()
