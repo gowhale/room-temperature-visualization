@@ -4,9 +4,9 @@ import json
 
 
 def kelvin_to_celcius(k):
-    raw_value = (k - 273.15)
-    formatted_value = round(raw_value, 2)
-    return formatted_value
+    raw_celcius = (k - 273.15)
+    formatted_celcius = round(raw_celcius, 2)
+    return formatted_celcius
 
 
 def get_weather(city_name):
@@ -49,8 +49,7 @@ def get_weather(city_name):
 
         else:
             print("UNKNOWN ERROR CODE")
-        
+
         print(pretty_json)
 
     return str(current_temperature_celcius)
-

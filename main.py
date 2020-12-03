@@ -20,12 +20,12 @@ def get_humidity():
     return (randrange(10))
 
 
-def pretty_time(raw_time):
-    return (raw_time.strftime("%H:%M:%S"))
+def pretty_time(raw_datetime):
+    return (raw_datetime.strftime("%H:%M:%S"))
 
 
-def pretty_date(raw_time):
-    return (raw_time.strftime("%Y:%m:%d"))
+def pretty_date(raw_datetime):
+    return (raw_datetime.strftime("%Y:%m:%d"))
 
 
 def get_current_time_object():
@@ -35,7 +35,6 @@ def get_current_time_object():
 
 
 def create_csv():
-    # TODO : Create a new CSV with unique name
     headers = [["time", "temperature", "humidity"]]
     if (INCLUDE_WEATHER):
         headers[0].append(get_weather(CURRENT_CITY))
@@ -51,7 +50,7 @@ def create_csv():
 
 def main():
     # TODO : capture enviroment temp and visualise data
-    
+
     current_file = create_csv()
 
     for _ in range(5):
