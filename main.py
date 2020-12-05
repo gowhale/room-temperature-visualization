@@ -4,9 +4,9 @@ from random import randrange
 import datetime
 from weather_api import get_weather
 
-TIME_BETWEEN_READINGS = 60   # Seconds between readings
+TIME_BETWEEN_READINGS = 60 * 0   # Seconds between readings
 
-INCLUDE_WEATHER = True
+INCLUDE_WEATHER = False      # Call the API to include weather data in report?
 CURRENT_CITY = "CARDIFF"    # City for weather
 
 
@@ -39,7 +39,7 @@ def create_csv():
     if (INCLUDE_WEATHER):
         headers[0].append(get_weather(CURRENT_CITY))
     current_datetime = get_current_time_object()
-    file_name = ("temperature-report-{}-{}.csv").format(pretty_date(current_datetime),
+    file_name = ("reports/temperature-report-{}-{}.csv").format(pretty_date(current_datetime),
                                                         pretty_time(current_datetime))
     with open(file_name, 'w', newline='') as f:
         writer = csv.writer(f)
