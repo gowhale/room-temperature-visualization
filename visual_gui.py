@@ -77,7 +77,6 @@ def main():
             print("TEMP IS: {}".format(temp))
             print(temp)
 
-            pygame.display.update()
 
             # Creates the square part of the house
             square_coordinates = (
@@ -108,6 +107,7 @@ def main():
                 house_dimensions["height"]*1.5), 10)
 
             # Waits for 1 second so that the API is only called once
+            pygame.display.update()
             time.sleep(1)
 
 
