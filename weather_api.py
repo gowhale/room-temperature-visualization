@@ -10,7 +10,7 @@ def kelvin_to_celcius(k):
 
 
 def get_weather(city_name):
-
+    print("Fetching Weather Data")
     base_url = "http://api.openweathermap.org/data/2.5/weather?"
 
     complete_url = base_url + "appid=" + weather_api_key + "&q=" + city_name
@@ -20,7 +20,7 @@ def get_weather(city_name):
     pretty_json = response.json()
 
     try:
-
+        print("Processing Weather Data")
         main_data = pretty_json["main"]
 
         current_temperature_kelvin = main_data["temp"]
