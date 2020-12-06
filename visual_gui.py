@@ -8,6 +8,8 @@ from colours import ColourScale
 
 # def draw_scale():
 
+    
+
 
 def main():
     pygame.init()
@@ -29,6 +31,18 @@ def main():
     print(test.get_colours())
 
     DISPLAY.fill(WHITE)
+
+    scale_locations = {"x": 50, "y": 50}
+    scale_dimensions = {"height": 10, "width": 10}
+
+    for part in range (1,30):
+        current_colour = test.get_tempreture_colours_pigame_format(part)
+
+        scale_coordinates = (
+            scale_locations["x"], scale_locations["y"]+(part*scale_dimensions["height"]), scale_dimensions["width"], scale_dimensions["height"])
+        pygame.draw.rect(
+            DISPLAY, current_colour, scale_coordinates)
+
     temp = 1
     while True:
         for event in pygame.event.get():

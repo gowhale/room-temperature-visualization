@@ -1,9 +1,5 @@
 from colour import Color
 
-# red = Color("red")
-# colors = list(red.range_to(Color("blue"),101))
-# print(colors)
-
 
 class ColourScale:
 
@@ -27,6 +23,12 @@ class ColourScale:
 
     def get_colours(self):
         return self.colour_scale
+
+    def get_tempreture_colours_pigame_format(self, val):
+        colour_object = self.get_tempreture_colours(val)
+        colour_rgb = (int(colour_object.get_red(
+        )*255), int(colour_object.get_green()*255), int(colour_object.get_blue()*255))
+        return colour_rgb
 
     def get_tempreture_colours(self, val):
 
