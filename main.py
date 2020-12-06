@@ -3,22 +3,41 @@ from time import sleep
 from random import randrange
 import datetime
 from weather_api import get_weather
+from bme280 import *
 
-TIME_BETWEEN_READINGS = 60   # Seconds between readings
+TIME_BETWEEN_READINGS = 1   # Seconds between readings
 
-INCLUDE_WEATHER = True
+INCLUDE_WEATHER = False      # Call the API to include weather data in report?
 CURRENT_CITY = "CARDIFF"    # City for weather
 
 
 def get_temperature():
-    # TODO: get tempreture from rasbperry pi sensor rather than just random number
-    return (randrange(10))
+    # TODO: get temperature from rasbperry pi sensor rather than just random number
+    (chip_id, chip_version) = readBME280ID()
+    print ("Chip ID     :", chip_id)
+    print ("Version     :", chip_version)
+
+    temperature,pressure,humidity = readBME280All()
+
+    print ("Temperature : ", temperature, "C")
+    print ("Pressure : ", pressure, "hPa")
+    print ("Humidity : ", humidity, "%")
+
+    return temperature
 
 
 def get_humidity():
     # TODO: get humidity from rasbperry pi sensor rather than just random number
-    return (randrange(10))
+    (chip_id, chip_version) = readBME280ID()
+    print ("Chip ID     :", chip_id)
+    print ("Version     :", chip_version)
 
+    temperature,pressure,humidity = readBME280All()
+
+    print ("Temperature : ", temperature, "C")
+    print ("Pressure : ", pressure, "hPa")
+    print ("Humidity : ", humidity, "%")
+    return humidity
 
 def pretty_time(raw_datetime):
     return (raw_datetime.strftime("%H:%M:%S"))
@@ -39,7 +58,7 @@ def create_csv():
     if (INCLUDE_WEATHER):
         headers[0].append(get_weather(CURRENT_CITY))
     current_datetime = get_current_time_object()
-    file_name = ("temperature-report-{}-{}.csv").format(pretty_date(current_datetime),
+    file_name = ("reports/temperature-report-{}-{}.csv").format(pretty_date(current_datetime),
                                                         pretty_time(current_datetime))
     with open(file_name, 'w', newline='') as f:
         writer = csv.writer(f)
@@ -53,7 +72,7 @@ def main():
 
     current_file = create_csv()
 
-    for _ in range(5):
+    for _ in range(100):
         temperature = get_temperature()
         humidity = get_humidity()
         current_time = get_current_time_object()
