@@ -8,10 +8,11 @@ from colours import ColourScale
 
 # def draw_scale():
 
-    
+
 def text_objects(text, font):
     textSurface = font.render(text, True, (0, 0, 0))
     return textSurface, textSurface.get_rect()
+
 
 def main():
     pygame.init()
@@ -37,7 +38,7 @@ def main():
     scale_locations = {"x": 50, "y": 50}
     scale_dimensions = {"height": 10, "width": 10}
 
-    for part in range (1,31):
+    for part in range(1, 31):
         current_colour = test.get_tempreture_colours_pigame_format(part)
 
         scale_coordinates = (
@@ -45,13 +46,12 @@ def main():
         pygame.draw.rect(
             DISPLAY, current_colour, scale_coordinates)
 
-
-        largeText = pygame.font.Font('freesansbold.ttf',10)
+        largeText = pygame.font.Font('freesansbold.ttf', 10)
         current_temp = 30 - part
         text = "{}C".format(current_temp)
         TextSurf, TextRect = text_objects(text, largeText)
         TextRect.center = (
-            scale_locations["x"]-15, scale_locations["y"]+(part*scale_dimensions["height"]) + 5 )
+            scale_locations["x"]-15, scale_locations["y"]+(part*scale_dimensions["height"]) + 5)
         DISPLAY.blit(TextSurf, TextRect)
 
     temp = 1
@@ -78,6 +78,11 @@ def main():
         pygame.draw.polygon(DISPLAY, interpolated_colour,
                             polygon_coordinates, 0)
 
+        circle_location = {"x": int(house_top_corner["x"] + house_dimensions["width"]/2), "y": int(
+            house_top_corner["y"] + house_dimensions["height"]/3)}
+
+        pygame.draw.circle(DISPLAY, interpolated_colour, (circle_location["x"], circle_location["y"]), int(
+            house_dimensions["height"]*1.5), 10)
 
         time.sleep(0.1)
 
