@@ -11,26 +11,6 @@ INCLUDE_WEATHER = False      # Call the API to include weather data in report?
 CURRENT_CITY = "CARDIFF"    # City for weather
 
 
-# def get_temperature():
-#     # TODO: get temperature from rasbperry pi sensor rather than just random number
-
-#     return temperature
-
-
-# def get_humidity():
-#     # TODO: get humidity from rasbperry pi sensor rather than just random number
-#     (chip_id, chip_version) = readBME280ID()
-#     print("Chip ID     :", chip_id)
-#     print("Version     :", chip_version)
-
-#     temperature, pressure, humidity = readBME280All()
-
-#     print("Temperature : ", temperature, "C")
-#     print("Pressure : ", pressure, "hPa")
-#     print("Humidity : ", humidity, "%")
-#     return humidity
-
-
 def pretty_time(raw_datetime):
     return (raw_datetime.strftime("%H:%M:%S"))
 

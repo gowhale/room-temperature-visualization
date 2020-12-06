@@ -1,4 +1,5 @@
-from bme280 import *
+from bme280 import readBME280ID
+from bme280 import readBME280All
 
 
 class Sensor ():
