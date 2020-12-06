@@ -4,7 +4,7 @@ from pygame.locals import *
 import time
 from random import randrange
 from colours import ColourScale
-
+from weather_api import get_weather
 
 # def draw_scale():
 
@@ -27,7 +27,7 @@ def main():
     RED = (255, 0, 0)
     GREEN = (0, 255, 0)
 
-    test = ColourScale("red", "blue", 100)
+    test = ColourScale("blue", "red", 100)
     test.set_max_temp(30)
     test.set_min_temp(0)
 
@@ -47,7 +47,7 @@ def main():
             DISPLAY, current_colour, scale_coordinates)
 
         largeText = pygame.font.Font('freesansbold.ttf', 10)
-        current_temp = 30 - part
+        current_temp = part - 1
         text = "{}C".format(current_temp)
         TextSurf, TextRect = text_objects(text, largeText)
         TextRect.center = (
@@ -58,7 +58,7 @@ def main():
     while True:
         for event in pygame.event.get():
             if event.type == QUIT:
-                pygame.quit()
+                pygame.quit()4
                 sys.exit()
         temp = (temp + 0.5) % 30
         print("TEMP IS: {}".format(temp))
@@ -81,10 +81,14 @@ def main():
         circle_location = {"x": int(house_top_corner["x"] + house_dimensions["width"]/2), "y": int(
             house_top_corner["y"] + house_dimensions["height"]/3)}
 
-        pygame.draw.circle(DISPLAY, interpolated_colour, (circle_location["x"], circle_location["y"]), int(
+        enviroment_tempreture = (float(get_weather("Cardiff")))
+        print("ENVIROMENT TEMP: {}".format(enviroment_tempreture))
+        enviroment_colour = test.get_tempreture_colours_pigame_format(enviroment_tempreture)
+
+        pygame.draw.circle(DISPLAY, enviroment_colour, (circle_location["x"], circle_location["y"]), int(
             house_dimensions["height"]*1.5), 10)
 
-        time.sleep(0.1)
+        time.sleep(5)
 
 
 main()
