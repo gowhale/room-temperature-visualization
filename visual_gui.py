@@ -98,8 +98,8 @@ def main():
             # Creates the circle around the house simulating weather
             circle_location = {"x": int(house_top_corner["x"] + house_dimensions["width"]/2), "y": int(
                 house_top_corner["y"] + house_dimensions["height"]/3)}
-            # enviroment_temperature = (float(get_weather("Cardiff")))
-            enviroment_temperature = temp #To stop too many API calls
+            enviroment_temperature = (float(get_weather("Cardiff")))
+            #enviroment_temperature = temp #To stop too many API calls
             print("ENVIROMENT TEMP: {}".format(enviroment_temperature))
 
             enviroment_colour = colour_scale.get_temperature_colours_pigame_format(
