@@ -58,7 +58,7 @@ def main():
     while True:
         for event in pygame.event.get():
             if event.type == QUIT:
-                pygame.quit()4
+                pygame.quit()
                 sys.exit()
         temp = (temp + 0.5) % 30
         print("TEMP IS: {}".format(temp))
