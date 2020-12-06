@@ -6,6 +6,7 @@ from random import randrange
 from colours import ColourScale
 from weather_api import get_weather
 import datetime
+from sensor import Sensor
 
 # def draw_scale():
 
@@ -27,7 +28,7 @@ def main():
     pygame.init()
 
     DISPLAY = pygame.display.set_mode((500, 400), 0, 32)
-    pygame.display.set_caption("temperature Analysis") 
+    pygame.display.set_caption("temperature Analysis")
     WHITE = (255, 255, 255)
     DISPLAY.fill(WHITE)
 
@@ -71,11 +72,11 @@ def main():
         if(get_current_ss() == "00"):
             # if(int(get_current_hh()) % 5 == 00):
 
-            temp = (temp + 0.5) % 30
+            enviroment_sensor = Sensor()
+            temp = enviroment_sensor.get_temperature()
             print("TEMP IS: {}".format(temp))
             print(temp)
 
-            pygame.display.update()
 
             # Creates the square part of the house
             square_coordinates = (
@@ -96,6 +97,7 @@ def main():
             circle_location = {"x": int(house_top_corner["x"] + house_dimensions["width"]/2), "y": int(
                 house_top_corner["y"] + house_dimensions["height"]/3)}
             enviroment_temperature = (float(get_weather("Cardiff")))
+            # enviroment_temperature = temp #To stop too many API calls
             print("ENVIROMENT TEMP: {}".format(enviroment_temperature))
 
             enviroment_colour = colour_scale.get_temperature_colours_pigame_format(
@@ -105,6 +107,7 @@ def main():
                 house_dimensions["height"]*1.5), 10)
 
             # Waits for 1 second so that the API is only called once
+            pygame.display.update()
             time.sleep(1)
 
 
