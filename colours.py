@@ -24,13 +24,13 @@ class ColourScale:
     def get_colours(self):
         return self.colour_scale
 
-    def get_tempreture_colours_pigame_format(self, val):
-        colour_object = self.get_tempreture_colours(val)
+    def get_temperature_colours_pigame_format(self, val):
+        colour_object = self.get_temperature_colours(val)
         colour_rgb = (int(colour_object.get_red(
         )*255), int(colour_object.get_green()*255), int(colour_object.get_blue()*255))
         return colour_rgb
 
-    def get_tempreture_colours(self, val):
+    def get_temperature_colours(self, val):
 
         max_temp = self.max_temp
         min_temp = self.min_temp

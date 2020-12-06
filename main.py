@@ -11,7 +11,7 @@ CURRENT_CITY = "CARDIFF"    # City for weather
 
 
 def get_temperature():
-    # TODO: get tempreture from rasbperry pi sensor rather than just random number
+    # TODO: get temperature from rasbperry pi sensor rather than just random number
     return (randrange(10))
 
 
