@@ -4,7 +4,7 @@ from pygame.locals import QUIT
 import time
 from random import randrange
 from colours import ColourScale
-from weather_api import get_weather
+from weather_api import Weather
 import datetime
 from sensor import Sensor
 
@@ -77,7 +77,6 @@ def main():
             print("TEMP IS: {}".format(temp))
             print(temp)
 
-
             # Creates the square part of the house
             square_coordinates = (
                 house_top_corner["x"], house_top_corner["y"], house_dimensions["width"], house_dimensions["height"])
@@ -96,7 +95,10 @@ def main():
             # Creates the circle around the house simulating weather
             circle_location = {"x": int(house_top_corner["x"] + house_dimensions["width"]/2), "y": int(
                 house_top_corner["y"] + house_dimensions["height"]/3)}
-            enviroment_temperature = (float(get_weather("Cardiff")))
+
+            current_weather = Weather("Cardiff")
+            enviroment_temperature = (
+                float(current_weather.get_ceclius_temp()))
             # enviroment_temperature = temp #To stop too many API calls
             print("ENVIROMENT TEMP: {}".format(enviroment_temperature))
 
