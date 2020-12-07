@@ -8,7 +8,7 @@ from sensor import Sensor
 from readings_log import ReadingsLog
 
 #CONSTANTS
-TIME_BETWEEN_READINGS = 60   # Seconds between readings
+TIME_BETWEEN_READINGS = 60*5   # Seconds between readings
 
 INCLUDE_WEATHER = True      # Call the API to include weather data in report?
 CURRENT_CITY = "CARDIFF"    # City for weather
