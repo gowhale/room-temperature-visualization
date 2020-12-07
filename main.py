@@ -1,50 +1,42 @@
-import csv
 from time import sleep
 from random import randrange
 import datetime
-from weather_api import get_weather
+
+# Custom Classes
+from weather_api import Weather
 from sensor import Sensor
+from readings_log import ReadingsLog
 
-TIME_BETWEEN_READINGS = 1   # Seconds between readings
+# CONSTANTS
+TIME_BETWEEN_READINGS = 60*5   # Seconds between readings
 
-INCLUDE_WEATHER = False      # Call the API to include weather data in report?
+INCLUDE_WEATHER = True      # Call the API to include weather data in report?
 CURRENT_CITY = "CARDIFF"    # City for weather
 
 
 def pretty_time(raw_datetime):
+    """converts datetime object into time in string format"""
     return (raw_datetime.strftime("%H:%M:%S"))
 
 
 def pretty_date(raw_datetime):
+    """converts datetime object into date in string format"""
     return (raw_datetime.strftime("%Y:%m:%d"))
 
 
 def get_current_time_object():
+    """Fetches current datetime in datetime object"""
     current_date_time = datetime.datetime.now()
-
     return current_date_time
 
 
-def create_csv():
-    headers = [["time", "temperature", "humidity", "pressure"]]
-    if (INCLUDE_WEATHER):
-        headers[0].append(get_weather(CURRENT_CITY))
-    current_datetime = get_current_time_object()
-    file_name = ("reports/temperature-report-{}-{}.csv").format(pretty_date(current_datetime),
-                                                                pretty_time(current_datetime))
-    with open(file_name, 'w', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerows(headers)
-
-    return file_name
-
-
 def main():
-    # TODO : capture enviroment temp and visualise data
+    """Takes sensor and weather readings at constant rate, saves to CSV."""
 
-    current_file = create_csv()
+    current_file = ReadingsLog(INCLUDE_WEATHER)
 
     for _ in range(100):
+
         enviroment_reader = Sensor()
         temperature = enviroment_reader.get_temperature()
         humidity = enviroment_reader.get_humidity()
@@ -54,13 +46,11 @@ def main():
                str(humidity), str(pressure)]
 
         if (INCLUDE_WEATHER):
-            row.append(get_weather(CURRENT_CITY))
+            current_weather = Weather(CURRENT_CITY)
+            row.append(str(current_weather.get_ceclius_temp()))
+            row.append(str(current_weather.get_weather_description()))
 
-        print(row)
-        file = open(current_file, 'a')
-        row_str = ",".join(row)+"\n"
-        file.write(row_str)
-        file.close()
+        current_file.append_row(row)
 
         sleep(TIME_BETWEEN_READINGS)
 
