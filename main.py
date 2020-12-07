@@ -45,6 +45,7 @@ def main():
         if (INCLUDE_WEATHER):
             current_weather = Weather(CURRENT_CITY)
             row.append(str(current_weather.get_ceclius_temp()))
+            row.append(str(current_weather.get_weather_description()))
 
         current_file.append_row(row)
 

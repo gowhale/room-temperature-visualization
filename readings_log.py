@@ -10,7 +10,8 @@ class ReadingsLog ():
         headers = [["Time", "Sensor Temperature",
                     "Sensor Humidity", "Sensor Pressure"]]
         if (include_weather):
-            headers[0].append("Weather Forecast")
+            headers[0].append("Weather Forecast Temperature")
+            headers[0].append("Weather Forecast Description")
         current_datetime = datetime.datetime.now()
 
         # Create File

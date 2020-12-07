@@ -22,14 +22,17 @@ class Weather:
         response = requests.get(complete_url)
 
         pretty_json = response.json()
+        self.pretty_json = pretty_json
 
         try:
 
             main_data = pretty_json["main"]
 
             current_temperature_kelvin = main_data["temp"]
+            
             self.kelvin_temp = current_temperature_kelvin
             self.create_celcius_temp()
+            self.weather_description = (pretty_json["weather"][0]['description'])
 
         except KeyError:
 
@@ -51,3 +54,7 @@ class Weather:
 
     def get_kelvin_temp(self):
         return self.kelvin_temp
+
+    def get_weather_description(self):
+        return self.weather_description
+
