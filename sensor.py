@@ -1,29 +1,29 @@
 from bme280 import readBME280ID
 from bme280 import readBME280All
 
+# NOTE : If you have a different sensor from the bme280 alter this class to take the readings from you different sensor
+
 
 class Sensor ():
 
     def __init__(self):
-        (chip_id, chip_version) = readBME280ID()
-        print("Chip ID     :", chip_id)
-        self.chip_id = chip_id
-        self.chip_version = chip_version
+        self.read_chip_information()
+        self.read_sensor_readings()
 
-        temperature, pressure, humidity = readBME280All()
+    def read_chip_information(self):
+        self.chip_id, self.chip_version = readBME280ID()
 
-        self.temperature = temperature
-        self.pressure = pressure
-        self.humidity = humidity
+    def read_sensor_readings(self):
+        self.temperature, self.pressure, self.humidity = readBME280All()
 
     def get_temperature(self):
-        temperature, _, _ = readBME280All()
-        return temperature
+        self.read_sensor_readings()
+        return self.temperature
 
     def get_humidity(self):
-        _, humidity, _ = readBME280All()
-        return humidity
+        self.read_sensor_readings()
+        return self.humidity
 
     def get_pressure(self):
-        _, _, pressure = readBME280All()
-        return pressure
+        self.read_sensor_readings()
+        return self.pressure

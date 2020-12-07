@@ -3,53 +3,51 @@ import requests
 import json
 
 
-def kelvin_to_celcius(k):
-    raw_celcius = (k - 273.15)
-    formatted_celcius = round(raw_celcius, 2)
-    return formatted_celcius
+class Weather:
 
+    def __init__(self, city_name):
+        self.city_name = city_name
+        self.read_weather()
 
-def get_weather(city_name):
-    print("Fetching Weather Data")
-    base_url = "http://api.openweathermap.org/data/2.5/weather?"
+    def create_celcius_temp(self):
+        raw_celcius = (self.kelvin_temp - 273.15)
+        formatted_celcius = round(raw_celcius, 2)
+        self.celcius_temp = formatted_celcius
 
-    complete_url = base_url + "appid=" + weather_api_key + "&q=" + city_name
+    def read_weather(self):
+        base_url = "http://api.openweathermap.org/data/2.5/weather?"
 
-    response = requests.get(complete_url)
+        complete_url = base_url + "appid=" + weather_api_key + "&q=" + self.city_name
 
-    pretty_json = response.json()
+        response = requests.get(complete_url)
 
-    try:
-        print("Processing Weather Data")
-        main_data = pretty_json["main"]
+        pretty_json = response.json()
 
-        current_temperature_kelvin = main_data["temp"]
-        current_temperature_celcius = kelvin_to_celcius(
-            current_temperature_kelvin)
+        try:
 
-        # print(" Temperature (in kelvin unit) = " +
+            main_data = pretty_json["main"]
 
-        #       str(current_temperature_kelvin) +
+            current_temperature_kelvin = main_data["temp"]
+            self.kelvin_temp = current_temperature_kelvin
+            self.create_celcius_temp()
 
-        #       "\n Temperature (in celcius unit) = " +
+        except KeyError:
 
-        #       str(current_temperature_celcius))
+            error_code = str(pretty_json["cod"])
 
-    except KeyError:
+            if error_code == '404':
 
-        error_code = str(pretty_json["cod"])
+                print(" --- City Not Found  --- ")
 
-        if error_code == '404':
+            if error_code == '401':
 
-            print(" --- City Not Found  --- ")
+                print(" --- API KEY ERROR --- ")
 
-        if error_code == '401':
+            else:
+                print("UNKNOWN ERROR CODE")
 
-            print(" --- API KEY ERROR --- ")
+    def get_ceclius_temp(self):
+        return self.celcius_temp
 
-        else:
-            print("UNKNOWN ERROR CODE")
-
-        print(pretty_json)
-
-    return str(current_temperature_celcius)
+    def get_kelvin_temp(self):
+        return self.kelvin_temp
