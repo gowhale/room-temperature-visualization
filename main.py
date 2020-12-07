@@ -7,7 +7,7 @@ from weather_api import Weather
 from sensor import Sensor
 from readings_log import ReadingsLog
 
-#CONSTANTS
+# CONSTANTS
 TIME_BETWEEN_READINGS = 60*5   # Seconds between readings
 
 INCLUDE_WEATHER = True      # Call the API to include weather data in report?
@@ -15,20 +15,23 @@ CURRENT_CITY = "CARDIFF"    # City for weather
 
 
 def pretty_time(raw_datetime):
+    """converts datetime object into time in string format"""
     return (raw_datetime.strftime("%H:%M:%S"))
 
 
 def pretty_date(raw_datetime):
+    """converts datetime object into date in string format"""
     return (raw_datetime.strftime("%Y:%m:%d"))
 
 
 def get_current_time_object():
+    """Fetches current datetime in datetime object"""
     current_date_time = datetime.datetime.now()
-
     return current_date_time
 
 
 def main():
+    """Takes sensor and weather readings at constant rate, saves to CSV."""
 
     current_file = ReadingsLog(INCLUDE_WEATHER)
 

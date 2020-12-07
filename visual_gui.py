@@ -77,7 +77,6 @@ def main():
             print("TEMP IS: {}".format(temp))
             print(temp)
 
-
             # Creates the square part of the house
             square_coordinates = (
                 house_top_corner["x"], house_top_corner["y"], house_dimensions["width"], house_dimensions["height"])
@@ -98,7 +97,8 @@ def main():
                 house_top_corner["y"] + house_dimensions["height"]/3)}
 
             current_weather = Weather("Cardiff")
-            enviroment_temperature = (float(current_weather.get_ceclius_temp()))
+            enviroment_temperature = (
+                float(current_weather.get_ceclius_temp()))
             # enviroment_temperature = temp #To stop too many API calls
             print("ENVIROMENT TEMP: {}".format(enviroment_temperature))
 
