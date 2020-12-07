@@ -8,9 +8,9 @@ from sensor import Sensor
 from readings_log import ReadingsLog
 
 #CONSTANTS
-TIME_BETWEEN_READINGS = 1   # Seconds between readings
+TIME_BETWEEN_READINGS = 60   # Seconds between readings
 
-INCLUDE_WEATHER = False      # Call the API to include weather data in report?
+INCLUDE_WEATHER = True      # Call the API to include weather data in report?
 CURRENT_CITY = "CARDIFF"    # City for weather
 
 
@@ -44,7 +44,7 @@ def main():
 
         if (INCLUDE_WEATHER):
             current_weather = Weather(CURRENT_CITY)
-            row.append(current_weather.get_ceclius_temp())
+            row.append(str(current_weather.get_ceclius_temp()))
 
         current_file.append_row(row)
 
