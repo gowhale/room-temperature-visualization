@@ -6,7 +6,8 @@
 # NOTE: Also, create an ALIAS to run this script
 
 finished=false
-pi_address="INSERT YOUR PI ADDRESS HERE"
+pi_address="INSERT PI ADDRESS HERE"
+pi_username="INSERT PI USERNAME HERE"
 
 while [ "${finished}" != "true" ]
 do
@@ -32,6 +33,6 @@ do
 
 done
 
-ssh pi@raspberrypi.local
+ssh ${pi_username}@${pi_address}
 
 echo "Finished"
