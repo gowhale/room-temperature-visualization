@@ -13,15 +13,19 @@ except FileNotFoundError:
 from readings_log import ReadingsLog
 
 # CONSTANTS
-TIME_BETWEEN_READINGS = "10s"   # Seconds between readings
+TIME_BETWEEN_READINGS = "5m"   # TIME BETWEEN READINGS. Currently supported 10s, 1m, 5m
 
 INCLUDE_WEATHER = True      # Call the API to include weather data in report?
 CURRENT_CITY = "CARDIFF"    # City for weather
 
 def check_time (t):
     if TIME_BETWEEN_READINGS == "10s":
-        return (int(t.strftime("%S") % 10) == True
-
+        return (int(t.strftime("%S")) % 10) == 0
+    elif TIME_BETWEEN_READINGS == "1m":
+        return (int(t.strftime("%S")) == 0)
+    elif TIME_BETWEEN_READINGS == "5m":
+        return (int(t.strftime("%S")) == 0) and ((int(t.strftime("%M")) % 5) == 0) 
+        
 
 def pretty_time(raw_datetime):
     """converts datetime object into time in string format"""
@@ -47,7 +51,7 @@ def main():
     while (1):
 
         current_time = get_current_time_object()
-        if (check_time(current_time))
+        if (check_time(current_time)):
             try:
                 enviroment_reader = Sensor()
                 temperature = enviroment_reader.get_temperature()
@@ -76,7 +80,7 @@ def main():
                     row.append("WEATHER API ERROR")
 
             current_file.append_row(row)
-            time.sleep(1)
+            sleep(1)
 
 
 
