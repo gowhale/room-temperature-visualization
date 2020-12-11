@@ -4,7 +4,12 @@ import datetime
 
 # Custom Classes
 from weather_api import Weather
-from sensor import Sensor
+
+try:
+    from sensor import Sensor
+except FileNotFoundError:
+    print("SENSOR ERROR, ENSURE INSTALLATION COMPLETE")
+
 from readings_log import ReadingsLog
 
 # CONSTANTS
@@ -37,18 +42,33 @@ def main():
 
     for _ in range(100):
 
-        enviroment_reader = Sensor()
-        temperature = enviroment_reader.get_temperature()
-        humidity = enviroment_reader.get_humidity()
-        pressure = enviroment_reader.get_pressure()
         current_time = get_current_time_object()
-        row = [pretty_time(current_time), str(temperature),
-               str(humidity), str(pressure)]
+        try:
+            enviroment_reader = Sensor()
+            temperature = enviroment_reader.get_temperature()
+            humidity = enviroment_reader.get_humidity()
+            pressure = enviroment_reader.get_pressure()
+            row = [pretty_time(current_time), str(temperature),
+                   str(humidity), str(pressure)]
+        except FileNotFoundError:
+            print("SENSOR ERROR, ENSURE INSTALLATION COMPLETE")
+            row = [pretty_time(current_time), "SENSOR ERROR",
+                   "SENSOR ERROR", "SENSOR ERROR"]
+        except NameError:
+            print("SENSOR ERROR, CANNOT CREATE CLASS AS IMPORT FAILED")
+            row = [pretty_time(current_time), "SENSOR ERROR",
+                   "SENSOR ERROR", "SENSOR ERROR"]
 
         if (INCLUDE_WEATHER):
-            current_weather = Weather(CURRENT_CITY)
-            row.append(str(current_weather.get_ceclius_temp()))
-            row.append(str(current_weather.get_weather_description()))
+            try:
+                current_weather = Weather(CURRENT_CITY)
+                row.append(str(current_weather.get_ceclius_temp()))
+                row.append(str(current_weather.get_weather_description()))
+            except NameError:
+                print(
+                    "WEATHER API ERROR. weather_api_key is not defined, CREATE secrets.py THEN ADD weather_api_key STRING")
+                row.append("WEATHER API ERROR")
+                row.append("WEATHER API ERROR")
 
         current_file.append_row(row)
 

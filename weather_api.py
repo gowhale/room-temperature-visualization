@@ -1,4 +1,10 @@
-from secrets import weather_api_key
+try:
+    from secrets import weather_api_key
+except ImportError:
+    print("WEATHER API ERROR. NO SECRETS FILE DETECTED. CREATE secrets.py THEN ADD weather_api_key STRING")
+except FileNotFoundError:
+    print("WEATHER API ERROR. NO SECRETS FILE DETECTED. CREATE secrets.py THEN ADD weather_api_key STRING")
+
 import requests
 import json
 
