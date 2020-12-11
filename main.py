@@ -4,6 +4,7 @@ import datetime
 
 # Custom Classes
 from weather_api import Weather
+
 try:
     from sensor import Sensor
 except FileNotFoundError:
@@ -51,12 +52,12 @@ def main():
                    str(humidity), str(pressure)]
         except FileNotFoundError:
             print("SENSOR ERROR, ENSURE INSTALLATION COMPLETE")
-            row = [pretty_time(current_time), "ERROR",
-                   "ERROR", "ERROR"]
+            row = [pretty_time(current_time), "SENSOR ERROR",
+                   "SENSOR ERROR", "SENSOR ERROR"]
         except NameError:
             print("SENSOR ERROR, CANNOT CREATE CLASS AS IMPORT FAILED")
-            row = [pretty_time(current_time), "ERROR",
-                   "ERROR", "ERROR"]
+            row = [pretty_time(current_time), "SENSOR ERROR",
+                   "SENSOR ERROR", "SENSOR ERROR"]
 
         if (INCLUDE_WEATHER):
             current_weather = Weather(CURRENT_CITY)
