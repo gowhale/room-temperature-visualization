@@ -60,9 +60,14 @@ def main():
                    "SENSOR ERROR", "SENSOR ERROR"]
 
         if (INCLUDE_WEATHER):
-            current_weather = Weather(CURRENT_CITY)
-            row.append(str(current_weather.get_ceclius_temp()))
-            row.append(str(current_weather.get_weather_description()))
+            try:
+                current_weather = Weather(CURRENT_CITY)
+                row.append(str(current_weather.get_ceclius_temp()))
+                row.append(str(current_weather.get_weather_description()))
+            except NameError:
+                print("weather_api_key is not defined, CREATE secrets.py THEN ADD weather_api_key STRING")
+                row.append("WEATHER API ERROR")
+                row.append("WEATHER API ERROR")
 
         current_file.append_row(row)
 
