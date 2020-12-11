@@ -65,7 +65,8 @@ def main():
                 row.append(str(current_weather.get_ceclius_temp()))
                 row.append(str(current_weather.get_weather_description()))
             except NameError:
-                print("weather_api_key is not defined, CREATE secrets.py THEN ADD weather_api_key STRING")
+                print(
+                    "WEATHER API ERROR. weather_api_key is not defined, CREATE secrets.py THEN ADD weather_api_key STRING")
                 row.append("WEATHER API ERROR")
                 row.append("WEATHER API ERROR")
 
