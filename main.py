@@ -41,12 +41,12 @@ def main():
 
     for _ in range(100):
 
+        current_time = get_current_time_object()
         try:
             enviroment_reader = Sensor()
             temperature = enviroment_reader.get_temperature()
             humidity = enviroment_reader.get_humidity()
             pressure = enviroment_reader.get_pressure()
-            current_time = get_current_time_object()
             row = [pretty_time(current_time), str(temperature),
                    str(humidity), str(pressure)]
         except FileNotFoundError:
