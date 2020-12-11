@@ -53,6 +53,10 @@ def main():
             print("SENSOR ERROR, ENSURE INSTALLATION COMPLETE")
             row = [pretty_time(current_time), "ERROR",
                    "ERROR", "ERROR"]
+        except NameError:
+            print("SENSOR ERROR, CANNOT CREATE CLASS AS IMPORT FAILED")
+            row = [pretty_time(current_time), "ERROR",
+                   "ERROR", "ERROR"]
 
         if (INCLUDE_WEATHER):
             current_weather = Weather(CURRENT_CITY)
