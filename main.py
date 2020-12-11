@@ -13,19 +13,21 @@ except FileNotFoundError:
 from readings_log import ReadingsLog
 
 # CONSTANTS
-TIME_BETWEEN_READINGS = "5m"   # TIME BETWEEN READINGS. Currently supported 10s, 1m, 5m
+# TIME BETWEEN READINGS. Currently supported 10s, 1m, 5m
+TIME_BETWEEN_READINGS = "5m"
 
 INCLUDE_WEATHER = True      # Call the API to include weather data in report?
 CURRENT_CITY = "CARDIFF"    # City for weather
 
-def check_time (t):
+
+def check_time(t):
     if TIME_BETWEEN_READINGS == "10s":
         return (int(t.strftime("%S")) % 10) == 0
     elif TIME_BETWEEN_READINGS == "1m":
         return (int(t.strftime("%S")) == 0)
     elif TIME_BETWEEN_READINGS == "5m":
-        return (int(t.strftime("%S")) == 0) and ((int(t.strftime("%M")) % 5) == 0) 
-        
+        return (int(t.strftime("%S")) == 0) and ((int(t.strftime("%M")) % 5) == 0)
+
 
 def pretty_time(raw_datetime):
     """converts datetime object into time in string format"""
@@ -58,15 +60,15 @@ def main():
                 humidity = enviroment_reader.get_humidity()
                 pressure = enviroment_reader.get_pressure()
                 row = [pretty_time(current_time), str(temperature),
-                    str(humidity), str(pressure)]
+                       str(humidity), str(pressure)]
             except FileNotFoundError:
                 print("SENSOR ERROR, ENSURE INSTALLATION COMPLETE")
                 row = [pretty_time(current_time), "SENSOR ERROR",
-                    "SENSOR ERROR", "SENSOR ERROR"]
+                       "SENSOR ERROR", "SENSOR ERROR"]
             except NameError:
                 print("SENSOR ERROR, CANNOT CREATE CLASS AS IMPORT FAILED")
                 row = [pretty_time(current_time), "SENSOR ERROR",
-                    "SENSOR ERROR", "SENSOR ERROR"]
+                       "SENSOR ERROR", "SENSOR ERROR"]
 
             if (INCLUDE_WEATHER):
                 try:
@@ -81,7 +83,6 @@ def main():
 
             current_file.append_row(row)
             sleep(1)
-
 
 
 if __name__ == "__main__":
